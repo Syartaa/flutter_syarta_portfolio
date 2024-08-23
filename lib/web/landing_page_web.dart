@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:syarta_portfolio/components.dart';
 
 class LandingPageWeb extends StatefulWidget {
@@ -14,9 +14,38 @@ class _LandingPageWebState extends State<LandingPageWeb> {
   @override
   Widget build(BuildContext context) {
     var heightDevice = MediaQuery.of(context).size.height;
+    var widthDevice = MediaQuery.of(context).size.width;
     return Scaffold(
       backgroundColor: Colors.white,
-      drawer: Drawer(),
+      drawer: Drawer(
+        backgroundColor: Colors.white,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            CircleAvatar(
+              radius: 72,
+              backgroundColor: Colors.tealAccent,
+              child: CircleAvatar(
+                radius: 70,
+                backgroundImage: AssetImage("assets/profilePhoto.jpg"),
+              ),
+            ),
+            SizedBox(height: 15.0),
+            SansBold("Syarta Pajaziti", 30.0),
+            SizedBox(height: 15.0),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                SvgPicture.asset(
+                  "assets/instagram.svg",
+                  color: Colors.black,
+                  width: 35,
+                )
+              ],
+            )
+          ],
+        ),
+      ),
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0.0,
@@ -60,21 +89,21 @@ class _LandingPageWebState extends State<LandingPageWeb> {
                       ),
                       padding: EdgeInsets.symmetric(
                           vertical: 10.0, horizontal: 20.0),
-                      child: SansBold("Hello I'am", 15),
+                      child: SansBold("Hello I'am", 15.0),
                     ),
                     SizedBox(
                       height: 15,
                     ),
-                    SansBold("Syarta Pajaziti", 55),
-                    Sans("Flutter developer", 30),
-                    SizedBox(height: 15),
+                    SansBold("Syarta Pajaziti", 55.0),
+                    Sans("Flutter developer", 30.0),
+                    SizedBox(height: 15.0),
                     Row(
                       children: [
                         Icon(Icons.email),
                         SizedBox(
-                          width: 20,
+                          width: 20.0,
                         ),
-                        Sans("syartapajaziti@gmail,com", 15)
+                        Sans("syartapajaziti@gmail,com", 15.0)
                       ],
                     ),
                     SizedBox(height: 10),
@@ -82,31 +111,31 @@ class _LandingPageWebState extends State<LandingPageWeb> {
                       children: [
                         Icon(Icons.call),
                         SizedBox(
-                          width: 20,
+                          width: 20.0,
                         ),
-                        Sans("+01 234 256", 15)
+                        Sans("+01 234 256", 15.0)
                       ],
                     ),
-                    SizedBox(height: 10),
+                    SizedBox(height: 10.0),
                     Row(
                       children: [
                         Icon(Icons.location_pin),
                         SizedBox(
-                          width: 20,
+                          width: 20.0,
                         ),
-                        Sans("Gjilan", 15)
+                        Sans("Gjilan", 15.0)
                       ],
                     ),
                   ],
                 ),
                 CircleAvatar(
-                  radius: 147,
+                  radius: 147.0,
                   backgroundColor: Colors.tealAccent,
                   child: CircleAvatar(
                     backgroundColor: Colors.black,
-                    radius: 143,
+                    radius: 143.0,
                     child: CircleAvatar(
-                      radius: 140,
+                      radius: 140.0,
                       backgroundImage: AssetImage("assets/profilePhoto.jpg"),
                     ),
                   ),
@@ -123,27 +152,27 @@ class _LandingPageWebState extends State<LandingPageWeb> {
                 children: [
                   Image.asset(
                     "assets/web.jpg",
-                    height: heightDevice / 1.7,
+                    height: heightDevice / 1.9,
                   ),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      SansBold("About me", 40),
+                      SansBold("About me", 40.0),
                       SizedBox(
-                        height: 15,
+                        height: 15.0,
                       ),
                       Sans(
                           "Flutter developer passionate about building high-performance, cross-platform mobile apps.",
-                          15),
+                          15.0),
                       Sans(
                           " Skilled in Dart and experienced in creating intuitive user experiences.",
-                          15),
+                          15.0),
                       Sans(
                           " Currently interning at Progtelx to further enhance my skills",
-                          15),
+                          15.0),
                       SizedBox(
-                        height: 10,
+                        height: 10.0,
                       ),
                       Row(
                         children: [
@@ -155,8 +184,8 @@ class _LandingPageWebState extends State<LandingPageWeb> {
                                   width: 2.0,
                                 ),
                                 borderRadius: BorderRadius.circular(5.0)),
-                            padding: EdgeInsets.all(7),
-                            child: Sans("Flutter", 15),
+                            padding: EdgeInsets.all(7.0),
+                            child: Sans("Flutter", 15.0),
                           ),
                           SizedBox(
                             width: 7,
@@ -169,8 +198,22 @@ class _LandingPageWebState extends State<LandingPageWeb> {
                                   width: 2.0,
                                 ),
                                 borderRadius: BorderRadius.circular(5.0)),
-                            padding: EdgeInsets.all(7),
-                            child: Sans("Firebase", 15),
+                            padding: EdgeInsets.all(7.0),
+                            child: Sans("Firebase", 15.0),
+                          ),
+                          SizedBox(
+                            width: 7.0,
+                          ),
+                          Container(
+                            decoration: BoxDecoration(
+                                border: Border.all(
+                                  color: Colors.tealAccent,
+                                  style: BorderStyle.solid,
+                                  width: 2.0,
+                                ),
+                                borderRadius: BorderRadius.circular(5.0)),
+                            padding: EdgeInsets.all(7.0),
+                            child: Sans("Android", 15.0),
                           ),
                           SizedBox(
                             width: 7,
@@ -183,8 +226,8 @@ class _LandingPageWebState extends State<LandingPageWeb> {
                                   width: 2.0,
                                 ),
                                 borderRadius: BorderRadius.circular(5.0)),
-                            padding: EdgeInsets.all(7),
-                            child: Sans("Android", 15),
+                            padding: EdgeInsets.all(7.0),
+                            child: Sans("IOS", 15.0),
                           ),
                           SizedBox(
                             width: 7,
@@ -197,22 +240,8 @@ class _LandingPageWebState extends State<LandingPageWeb> {
                                   width: 2.0,
                                 ),
                                 borderRadius: BorderRadius.circular(5.0)),
-                            padding: EdgeInsets.all(7),
-                            child: Sans("IOS", 15),
-                          ),
-                          SizedBox(
-                            width: 7,
-                          ),
-                          Container(
-                            decoration: BoxDecoration(
-                                border: Border.all(
-                                  color: Colors.tealAccent,
-                                  style: BorderStyle.solid,
-                                  width: 2.0,
-                                ),
-                                borderRadius: BorderRadius.circular(5.0)),
-                            padding: EdgeInsets.all(7),
-                            child: Sans("Windows", 15),
+                            padding: EdgeInsets.all(7.0),
+                            child: Sans("Windows", 15.0),
                           ),
                         ],
                       )
@@ -226,79 +255,23 @@ class _LandingPageWebState extends State<LandingPageWeb> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                SansBold("What I do?", 40),
+                SansBold("What I do?", 40.0),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    Card(
-                      elevation: 30,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(15.0)),
-                      shadowColor: Colors.tealAccent,
-                      child: Padding(
-                        padding: const EdgeInsets.all(15),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Image.asset(
-                              "assets/webL.png",
-                              height: 200,
-                              width: 200,
-                            ),
-                            SizedBox(
-                              height: 10,
-                            ),
-                            SansBold("Web development", 15),
-                          ],
-                        ),
-                      ),
+                    AnimatedCardWeb(
+                      text: "Web developer",
+                      imagePath: "assets/webL.png",
                     ),
-                    Card(
-                      elevation: 30,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(15.0)),
-                      shadowColor: Colors.tealAccent,
-                      child: Padding(
-                        padding: const EdgeInsets.all(15),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Image.asset(
-                              "assets/app.png",
-                              height: 200,
-                              width: 200,
-                              fit: BoxFit.contain,
-                            ),
-                            SizedBox(
-                              height: 10,
-                            ),
-                            SansBold("App development", 15),
-                          ],
-                        ),
-                      ),
+                    AnimatedCardWeb(
+                      text: "App developer",
+                      imagePath: "assets/app.png",
+                      fit: BoxFit.contain,
+                      reverse: true,
                     ),
-                    Card(
-                      elevation: 30,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(15.0)),
-                      shadowColor: Colors.tealAccent,
-                      child: Padding(
-                        padding: const EdgeInsets.all(15),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Image.asset(
-                              "assets/firebase.png",
-                              height: 200,
-                              width: 200,
-                            ),
-                            SizedBox(
-                              height: 10,
-                            ),
-                            SansBold("Back-end development", 15),
-                          ],
-                        ),
-                      ),
+                    AnimatedCardWeb(
+                      text: "Back-end developer",
+                      imagePath: "assets/firebase.png",
                     ),
                   ],
                 )
@@ -311,47 +284,61 @@ class _LandingPageWebState extends State<LandingPageWeb> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                SansBold("Contact me", 40),
+                SansBold("Contact me", 40.0),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     Column(
                       children: [
-                        Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Sans("First name", 16),
-                              SizedBox(height: 5),
-                              SizedBox(
-                                width: 350,
-                                child: TextFormField(
-                                  decoration: InputDecoration(
-                                    enabledBorder: OutlineInputBorder(
-                                      borderSide:
-                                          BorderSide(color: Colors.teal),
-                                      borderRadius:
-                                          BorderRadius.all(Radius.circular(10)),
-                                    ),
-                                    focusedBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                          color: Colors.tealAccent, width: 2),
-                                      borderRadius: BorderRadius.all(
-                                          Radius.circular(15.0)),
-                                    ),
-                                    hintText: "Please Enter your name",
-                                    hintStyle:
-                                        GoogleFonts.poppins(fontSize: 14),
-                                  ),
-                                ),
-                              ),
-                            ])
+                        TextForm(
+                          width: 350,
+                          heading: "First Name",
+                          hintText: "Please type your first name",
+                        ),
+                        SizedBox(height: 15.0),
+                        TextForm(
+                            heading: "Email",
+                            width: 350.0,
+                            hintText: "Please type your email"),
                       ],
                     ),
+                    Column(
+                      children: [
+                        TextForm(
+                            heading: "Last Name",
+                            width: 350,
+                            hintText: "Please type your last name"),
+                        SizedBox(height: 15.0),
+                        TextForm(
+                          heading: "Phone number",
+                          width: 350.0,
+                          hintText: "Please type your phone number",
+                        ),
+                      ],
+                    )
                   ],
+                ),
+                TextForm(
+                    heading: "Message",
+                    width: widthDevice / 1.5,
+                    hintText: "Please type your message",
+                    maxLines: 6),
+                MaterialButton(
+                  onPressed: () {},
+                  elevation: 20.0,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10.0)),
+                  height: 60.0,
+                  minWidth: 200.0,
+                  color: Colors.tealAccent,
+                  child: SansBold("Submit", 20.0),
                 )
               ],
             ),
           ),
+          SizedBox(
+            height: 20.0,
+          )
         ],
       ),
     );
