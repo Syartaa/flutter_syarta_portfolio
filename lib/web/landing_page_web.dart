@@ -194,73 +194,23 @@ class _LandingPageWebState extends State<LandingPageWeb> {
                       ),
                       Row(
                         children: [
-                          Container(
-                            decoration: BoxDecoration(
-                                border: Border.all(
-                                  color: Colors.tealAccent,
-                                  style: BorderStyle.solid,
-                                  width: 2.0,
-                                ),
-                                borderRadius: BorderRadius.circular(5.0)),
-                            padding: EdgeInsets.all(7.0),
-                            child: Sans("Flutter", 15.0),
-                          ),
-                          SizedBox(
-                            width: 7,
-                          ),
-                          Container(
-                            decoration: BoxDecoration(
-                                border: Border.all(
-                                  color: Colors.tealAccent,
-                                  style: BorderStyle.solid,
-                                  width: 2.0,
-                                ),
-                                borderRadius: BorderRadius.circular(5.0)),
-                            padding: EdgeInsets.all(7.0),
-                            child: Sans("Firebase", 15.0),
-                          ),
+                          SkillWeb(text: "Flutter"),
                           SizedBox(
                             width: 7.0,
                           ),
-                          Container(
-                            decoration: BoxDecoration(
-                                border: Border.all(
-                                  color: Colors.tealAccent,
-                                  style: BorderStyle.solid,
-                                  width: 2.0,
-                                ),
-                                borderRadius: BorderRadius.circular(5.0)),
-                            padding: EdgeInsets.all(7.0),
-                            child: Sans("Android", 15.0),
-                          ),
+                          SkillWeb(text: "Web"),
                           SizedBox(
-                            width: 7,
+                            width: 7.0,
                           ),
-                          Container(
-                            decoration: BoxDecoration(
-                                border: Border.all(
-                                  color: Colors.tealAccent,
-                                  style: BorderStyle.solid,
-                                  width: 2.0,
-                                ),
-                                borderRadius: BorderRadius.circular(5.0)),
-                            padding: EdgeInsets.all(7.0),
-                            child: Sans("IOS", 15.0),
-                          ),
+                          SkillWeb(text: "Android"),
                           SizedBox(
-                            width: 7,
+                            width: 7.0,
                           ),
-                          Container(
-                            decoration: BoxDecoration(
-                                border: Border.all(
-                                  color: Colors.tealAccent,
-                                  style: BorderStyle.solid,
-                                  width: 2.0,
-                                ),
-                                borderRadius: BorderRadius.circular(5.0)),
-                            padding: EdgeInsets.all(7.0),
-                            child: Sans("Windows", 15.0),
+                          SkillWeb(text: "Ios"),
+                          SizedBox(
+                            width: 7.0,
                           ),
+                          SkillWeb(text: "Windows"),
                         ],
                       )
                     ],
@@ -277,17 +227,17 @@ class _LandingPageWebState extends State<LandingPageWeb> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    AnimatedCardWeb(
+                    AnimatedCard(
                       text: "Web developer",
                       imagePath: "assets/webL.png",
                     ),
-                    AnimatedCardWeb(
+                    AnimatedCard(
                       text: "App developer",
                       imagePath: "assets/app.png",
                       fit: BoxFit.contain,
                       reverse: true,
                     ),
-                    AnimatedCardWeb(
+                    AnimatedCard(
                       text: "Back-end developer",
                       imagePath: "assets/firebase.png",
                     ),

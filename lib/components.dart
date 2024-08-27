@@ -44,12 +44,40 @@ class _TabsWebState extends State<TabsWeb> {
                 decoration: TextDecoration.underline,
                 decorationThickness: 2,
                 decorationColor: Colors.tealAccent)
-            : GoogleFonts.roboto(color: Colors.black, fontSize: 23.0),
+            : GoogleFonts.roboto(color: Colors.black, fontSize: 20.0),
         child: Text(
           widget.tittle,
         ),
       ),
     );
+  }
+}
+
+class TabsMobile extends StatefulWidget {
+  final text;
+  final route;
+  const TabsMobile({super.key, @required this.text, @required this.route});
+
+  @override
+  State<TabsMobile> createState() => _TabsMobileState();
+}
+
+class _TabsMobileState extends State<TabsMobile> {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialButton(
+        elevation: 20.0,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(7.0),
+        ),
+        height: 50.0,
+        minWidth: 200.0,
+        color: Colors.black,
+        child: Text(
+          widget.text,
+          style: GoogleFonts.openSans(fontSize: 20.0, color: Colors.white),
+        ),
+        onPressed: () {});
   }
 }
 
@@ -129,23 +157,27 @@ class TextForm extends StatelessWidget {
   }
 }
 
-class AnimatedCardWeb extends StatefulWidget {
+class AnimatedCard extends StatefulWidget {
   final imagePath;
   final text;
   final fit;
   final reverse;
-  const AnimatedCardWeb(
+  final height;
+  final width;
+  const AnimatedCard(
       {super.key,
       @required this.text,
       @required this.imagePath,
       this.fit,
-      this.reverse});
+      this.reverse,
+      this.height,
+      this.width});
 
   @override
-  State<AnimatedCardWeb> createState() => _AnimatedCardWebState();
+  State<AnimatedCard> createState() => _AnimatedCardState();
 }
 
-class _AnimatedCardWebState extends State<AnimatedCardWeb>
+class _AnimatedCardState extends State<AnimatedCard>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller = AnimationController(
     vsync: this,
@@ -181,8 +213,8 @@ class _AnimatedCardWebState extends State<AnimatedCardWeb>
             children: [
               Image.asset(
                 widget.imagePath,
-                height: 200.0,
-                width: 200.0,
+                height: widget.height == null ? 200.0 : widget.height,
+                width: widget.width == null ? 200.0 : widget.width,
                 fit: widget.fit == null ? null : widget.fit,
               ),
               SizedBox(
@@ -192,6 +224,81 @@ class _AnimatedCardWebState extends State<AnimatedCardWeb>
             ],
           ),
         ),
+      ),
+    );
+  }
+}
+
+class SkillMobile extends StatefulWidget {
+  final String text; // Ensure type safety by declaring text as String
+  const SkillMobile({super.key, required this.text});
+
+  @override
+  _SkillMobileState createState() => _SkillMobileState();
+}
+
+class _SkillMobileState extends State<SkillMobile> {
+  bool _isHovered = false; // State to track hover status
+
+  @override
+  Widget build(BuildContext context) {
+    return MouseRegion(
+      onEnter: (_) => setState(() => _isHovered = true),
+      onExit: (_) => setState(() => _isHovered = false),
+      child: Container(
+        decoration: BoxDecoration(
+          color: _isHovered
+              ? Colors.tealAccent
+              : Colors.transparent, // Change background color on hover
+          border: Border.all(
+            color: Colors.tealAccent,
+            style: BorderStyle.solid,
+            width: 2.0,
+          ),
+          borderRadius: BorderRadius.circular(5.0),
+        ),
+        padding: EdgeInsets.all(7.0),
+        child: Text(
+          widget
+              .text, // Using widget.text to access the text property of the SkillMobile widget
+          style: GoogleFonts.openSans(fontSize: 15.0),
+        ),
+      ),
+    );
+  }
+}
+
+class SkillWeb extends StatefulWidget {
+  final String text; // Ensure type safety by declaring text as String
+  const SkillWeb({super.key, required this.text});
+
+  @override
+  _SkillWebState createState() => _SkillWebState();
+}
+
+class _SkillWebState extends State<SkillWeb> {
+  bool _isHovered = false; // State to track hover status
+
+  @override
+  Widget build(BuildContext context) {
+    return MouseRegion(
+      onEnter: (_) => setState(() => _isHovered = true),
+      onExit: (_) => setState(() => _isHovered = false),
+      child: Container(
+        decoration: BoxDecoration(
+          color: _isHovered
+              ? Colors.tealAccent
+              : Colors.transparent, // Change background color on hover
+          border: Border.all(
+            color: Colors.tealAccent,
+            style: BorderStyle.solid,
+            width: 2.0,
+          ),
+          borderRadius: BorderRadius.circular(5.0),
+        ),
+        padding: EdgeInsets.all(7.0),
+        child: Sans(widget.text,
+            15.0), // Using widget.text to access the text property of the SkillWeb widget
       ),
     );
   }
