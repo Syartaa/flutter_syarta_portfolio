@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:syarta_portfolio/components.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class LandingPageWeb extends StatefulWidget {
   const LandingPageWeb({super.key});
@@ -11,6 +12,23 @@ class LandingPageWeb extends StatefulWidget {
 }
 
 class _LandingPageWebState extends State<LandingPageWeb> {
+  Widget urlLauncher(String imgPath, String url) {
+    return IconButton(
+      icon: SvgPicture.asset(
+        imgPath,
+        color: Colors.black,
+        width: 35,
+      ),
+      onPressed: () async {
+        if (await canLaunchUrl(Uri.parse(url))) {
+          await launchUrl(Uri.parse(url));
+        } else {
+          throw 'Could not launch $url';
+        }
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     var heightDevice = MediaQuery.of(context).size.height;
@@ -36,11 +54,11 @@ class _LandingPageWebState extends State<LandingPageWeb> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                SvgPicture.asset(
-                  "assets/instagram.svg",
-                  color: Colors.black,
-                  width: 35,
-                )
+                urlLauncher("assets/instagram.svg",
+                    "https://www.instagram.com/tomcruise/"),
+                urlLauncher(
+                    "assets/twitter.svg", "https://www.twitter.com/tomcruise/"),
+                urlLauncher("assets/github.svg", "https://www.github.com/"),
               ],
             )
           ],
