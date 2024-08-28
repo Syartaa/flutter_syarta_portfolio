@@ -5,7 +5,8 @@ import 'package:google_fonts/google_fonts.dart';
 
 class TabsWeb extends StatefulWidget {
   final tittle;
-  const TabsWeb(this.tittle, {super.key});
+  final route;
+  const TabsWeb({super.key, this.tittle, this.route});
 
   @override
   State<TabsWeb> createState() => _TabsWebState();
@@ -15,38 +16,43 @@ class _TabsWebState extends State<TabsWeb> {
   bool isSelected = false;
   @override
   Widget build(BuildContext context) {
-    return MouseRegion(
-      onEnter: (_) {
-        setState(() {
-          isSelected = true;
-        });
-        //print("Entered");
+    return GestureDetector(
+      onTap: () {
+        Navigator.of(context).pushNamed(widget.route);
       },
-      onExit: (_) {
-        setState(() {
-          isSelected = false;
-        });
-        //print("Exit");
-      },
-      child: AnimatedDefaultTextStyle(
-        duration: const Duration(microseconds: 100),
-        curve: Curves.elasticIn,
-        style: isSelected
-            ? GoogleFonts.roboto(
-                shadows: [
-                    Shadow(
-                      color: Colors.black,
-                      offset: Offset(0, -5),
-                    ),
-                  ],
-                color: Colors.transparent,
-                fontSize: 25.0,
-                decoration: TextDecoration.underline,
-                decorationThickness: 2,
-                decorationColor: Colors.tealAccent)
-            : GoogleFonts.roboto(color: Colors.black, fontSize: 20.0),
-        child: Text(
-          widget.tittle,
+      child: MouseRegion(
+        onEnter: (_) {
+          setState(() {
+            isSelected = true;
+          });
+          //print("Entered");
+        },
+        onExit: (_) {
+          setState(() {
+            isSelected = false;
+          });
+          //print("Exit");
+        },
+        child: AnimatedDefaultTextStyle(
+          duration: const Duration(microseconds: 100),
+          curve: Curves.elasticIn,
+          style: isSelected
+              ? GoogleFonts.roboto(
+                  shadows: [
+                      Shadow(
+                        color: Colors.black,
+                        offset: Offset(0, -5),
+                      ),
+                    ],
+                  color: Colors.transparent,
+                  fontSize: 25.0,
+                  decoration: TextDecoration.underline,
+                  decorationThickness: 2,
+                  decorationColor: Colors.tealAccent)
+              : GoogleFonts.roboto(color: Colors.black, fontSize: 20.0),
+          child: Text(
+            widget.tittle,
+          ),
         ),
       ),
     );
@@ -77,7 +83,9 @@ class _TabsMobileState extends State<TabsMobile> {
           widget.text,
           style: GoogleFonts.openSans(fontSize: 20.0, color: Colors.white),
         ),
-        onPressed: () {});
+        onPressed: () {
+          Navigator.of(context).pushNamed(widget.route);
+        });
   }
 }
 
@@ -110,15 +118,15 @@ class Sans extends StatelessWidget {
 }
 
 class TextForm extends StatelessWidget {
-  final heading;
-  final width;
+  final text;
+  final Containerwidth;
   final hintText;
   final maxLines;
 
   const TextForm(
       {super.key,
-      @required this.heading,
-      @required this.width,
+      @required this.text,
+      @required this.Containerwidth,
       @required this.hintText,
       this.maxLines});
 
@@ -127,10 +135,10 @@ class TextForm extends StatelessWidget {
     return Column(
       children: [
         Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          Sans(heading, 16.0),
+          Sans(text, 16.0),
           SizedBox(height: 5.0),
           SizedBox(
-            width: width,
+            width: Containerwidth,
             child: TextFormField(
               maxLines: maxLines == null ? null : maxLines,
               decoration: InputDecoration(
