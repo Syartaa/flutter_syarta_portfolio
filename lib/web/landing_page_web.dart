@@ -72,15 +72,30 @@ class _LandingPageWebState extends State<LandingPageWeb> {
           Spacer(
             flex: 3,
           ),
-          TabsWeb("Home"),
+          TabsWeb(
+            tittle: "Home",
+            route: '/',
+          ),
           Spacer(),
-          TabsWeb("Works"),
+          TabsWeb(
+            tittle: "Works",
+            route: '/works',
+          ),
           Spacer(),
-          TabsWeb("About"),
+          TabsWeb(
+            tittle: "Blog",
+            route: '/blog',
+          ),
           Spacer(),
-          TabsWeb("Blog"),
+          TabsWeb(
+            tittle: "About",
+            route: '/about',
+          ),
           Spacer(),
-          TabsWeb("Contact"),
+          TabsWeb(
+            tittle: "Contact",
+            route: '/contact',
+          ),
           Spacer(),
         ]),
       ),
@@ -259,27 +274,27 @@ class _LandingPageWebState extends State<LandingPageWeb> {
                     Column(
                       children: [
                         TextForm(
-                          width: 350,
-                          heading: "First Name",
+                          Containerwidth: 350,
+                          text: "First Name",
                           hintText: "Please type your first name",
                         ),
                         SizedBox(height: 15.0),
                         TextForm(
-                            heading: "Email",
-                            width: 350.0,
+                            text: "Email",
+                            Containerwidth: 350.0,
                             hintText: "Please type your email"),
                       ],
                     ),
                     Column(
                       children: [
                         TextForm(
-                            heading: "Last Name",
-                            width: 350,
+                            text: "Last Name",
+                            Containerwidth: 350,
                             hintText: "Please type your last name"),
                         SizedBox(height: 15.0),
                         TextForm(
-                          heading: "Phone number",
-                          width: 350.0,
+                          text: "Phone number",
+                          Containerwidth: 350.0,
                           hintText: "Please type your phone number",
                         ),
                       ],
@@ -287,8 +302,8 @@ class _LandingPageWebState extends State<LandingPageWeb> {
                   ],
                 ),
                 TextForm(
-                    heading: "Message",
-                    width: widthDevice / 1.5,
+                    text: "Message",
+                    Containerwidth: widthDevice / 1.5,
                     hintText: "Please type your message",
                     maxLines: 6),
                 MaterialButton(

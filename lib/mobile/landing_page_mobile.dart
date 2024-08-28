@@ -203,6 +203,48 @@ class _LandingPageMobileState extends State<LandingPageMobile> {
                 width: 300.0,
               ),
               SizedBox(height: 60.0),
+              //Contact forth section
+              Wrap(
+                runSpacing: 20.0,
+                spacing: 20.0,
+                alignment: WrapAlignment.center,
+                children: [
+                  SansBold("Contact me", 35.0),
+                  TextForm(
+                      text: "First Name",
+                      Containerwidth: widthDevice / 1.4,
+                      hintText: "Please enter first name"),
+                  TextForm(
+                      text: "Last Name",
+                      Containerwidth: widthDevice / 1.4,
+                      hintText: "Please enter last name"),
+                  TextForm(
+                      text: "Email",
+                      Containerwidth: widthDevice / 1.4,
+                      hintText: "Please enter email"),
+                  TextForm(
+                      text: "Phone number",
+                      Containerwidth: widthDevice / 1.4,
+                      hintText: "Please enter phone number"),
+                  TextForm(
+                    text: "Message",
+                    Containerwidth: widthDevice / 1.4,
+                    hintText: "message",
+                    maxLines: 10,
+                  ),
+                  MaterialButton(
+                    onPressed: () {},
+                    elevation: 20.0,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10.0)),
+                    height: 60.0,
+                    minWidth: widthDevice / 2.2,
+                    color: Colors.tealAccent,
+                    child: SansBold("Submit", 20.0),
+                  ),
+                ],
+              ),
+              SizedBox(height: 20.0)
             ],
           )
         ],
