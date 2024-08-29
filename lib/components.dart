@@ -174,7 +174,7 @@ class AnimatedCard extends StatefulWidget {
   final width;
   const AnimatedCard(
       {super.key,
-      @required this.text,
+      this.text,
       @required this.imagePath,
       this.fit,
       this.reverse,
@@ -228,7 +228,7 @@ class _AnimatedCardState extends State<AnimatedCard>
               SizedBox(
                 height: 10.0,
               ),
-              SansBold(widget.text, 15.0),
+              widget.text == null ? SizedBox() : SansBold(widget.text, 15.0),
             ],
           ),
         ),
