@@ -78,6 +78,11 @@ class _LandingPageWebState extends State<LandingPageWeb> {
           ),
           Spacer(),
           TabsWeb(
+            tittle: "About",
+            route: '/about',
+          ),
+          Spacer(),
+          TabsWeb(
             tittle: "Works",
             route: '/works',
           ),
@@ -85,11 +90,6 @@ class _LandingPageWebState extends State<LandingPageWeb> {
           TabsWeb(
             tittle: "Blog",
             route: '/blog',
-          ),
-          Spacer(),
-          TabsWeb(
-            tittle: "About",
-            route: '/about',
           ),
           Spacer(),
           TabsWeb(
