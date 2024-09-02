@@ -1,11 +1,21 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:syarta_portfolio/mobile/landing_page_mobile.dart';
+import 'package:syarta_portfolio/firebase_options.dart';
 import 'package:syarta_portfolio/routes.dart';
-import 'package:syarta_portfolio/web/landing_page_web.dart';
 import 'package:url_strategy/url_strategy.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   setPathUrlStrategy();
+  try {
+    await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform,
+    );
+    print('Firebase initialized successfully.');
+  } catch (e) {
+    print('Error initializing Firebase: $e');
+  }
+
   runApp(const MyApp());
 }
 

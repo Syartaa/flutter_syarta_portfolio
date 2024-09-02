@@ -31,7 +31,6 @@ class _AboutWebState extends State<AboutWeb> {
 
   @override
   Widget build(BuildContext context) {
-    var heightDevice = MediaQuery.of(context).size.height;
     var widthDevice = MediaQuery.of(context).size.width;
     return Scaffold(
       drawer: Drawer(
