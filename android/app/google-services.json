@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "694972334309",
+    "project_id": "syarta-portfolio",
+    "storage_bucket": "syarta-portfolio.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:694972334309:android:ed84fc7326612e0067940c",
+        "android_client_info": {
+          "package_name": "com.example.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAaxq6Pw8JZ87gsXEDgSBGtsO8FLm58g8E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:694972334309:android:da2bdf562c19b71367940c",
+        "android_client_info": {
+          "package_name": "com.example.syarta_portfolio"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAaxq6Pw8JZ87gsXEDgSBGtsO8FLm58g8E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
