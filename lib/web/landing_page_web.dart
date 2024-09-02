@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:logger/logger.dart';
 import 'package:syarta_portfolio/components.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -28,6 +29,14 @@ class _LandingPageWebState extends State<LandingPageWeb> {
       },
     );
   }
+
+  var logger = Logger();
+  final TextEditingController _firstNameController = TextEditingController();
+  final TextEditingController _lastNameController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _phoneController = TextEditingController();
+  final TextEditingController _messageController = TextEditingController();
+  final formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -264,59 +273,104 @@ class _LandingPageWebState extends State<LandingPageWeb> {
           //forth section
           Container(
             height: heightDevice,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                SansBold("Contact me", 40.0),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Column(
-                      children: [
-                        TextForm(
-                          Containerwidth: 350,
-                          text: "First Name",
-                          hintText: "Please type your first name",
-                        ),
-                        SizedBox(height: 15.0),
-                        TextForm(
-                            text: "Email",
-                            Containerwidth: 350.0,
-                            hintText: "Please type your email"),
-                      ],
-                    ),
-                    Column(
-                      children: [
-                        TextForm(
-                            text: "Last Name",
+            child: Form(
+              key: formKey,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  SansBold("Contact me", 40.0),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Column(
+                        children: [
+                          TextForm(
                             Containerwidth: 350,
-                            hintText: "Please type your last name"),
-                        SizedBox(height: 15.0),
-                        TextForm(
-                          text: "Phone number",
-                          Containerwidth: 350.0,
-                          hintText: "Please type your phone number",
-                        ),
-                      ],
-                    )
-                  ],
-                ),
-                TextForm(
-                    text: "Message",
-                    Containerwidth: widthDevice / 1.5,
-                    hintText: "Please type your message",
-                    maxLines: 6),
-                MaterialButton(
-                  onPressed: () {},
-                  elevation: 20.0,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10.0)),
-                  height: 60.0,
-                  minWidth: 200.0,
-                  color: Colors.tealAccent,
-                  child: SansBold("Submit", 20.0),
-                )
-              ],
+                            text: "First Name",
+                            hintText: "Please type your first name",
+                            controller: _firstNameController,
+                            validator: (text) {
+                              if (text.toString().isEmpty) {
+                                return "First name is required";
+                              }
+                            },
+                          ),
+                          SizedBox(height: 15.0),
+                          TextForm(
+                              text: "Email",
+                              Containerwidth: 350.0,
+                              hintText: "Please type your email",
+                              controller: _emailController,
+                              validator: (text) {
+                                if (text.toString().isEmpty) {
+                                  return "email is required";
+                                }
+                              }),
+                        ],
+                      ),
+                      Column(
+                        children: [
+                          TextForm(
+                              text: "Last Name",
+                              Containerwidth: 350,
+                              hintText: "Please type your last name",
+                              controller: _lastNameController,
+                              validator: (text) {
+                                if (text.toString().isEmpty) {
+                                  return "Last name is required";
+                                }
+                              }),
+                          SizedBox(height: 15.0),
+                          TextForm(
+                              text: "Phone number",
+                              Containerwidth: 350.0,
+                              hintText: "Please type your phone number",
+                              controller: _phoneController,
+                              validator: (text) {
+                                if (text.toString().isEmpty) {
+                                  return "Phone number is required";
+                                }
+                              }),
+                        ],
+                      )
+                    ],
+                  ),
+                  TextForm(
+                      text: "Message",
+                      Containerwidth: widthDevice / 1.5,
+                      hintText: "Please type your message",
+                      controller: _messageController,
+                      maxLines: 6,
+                      validator: (text) {
+                        if (text.toString().isEmpty) {
+                          return "Message is required";
+                        }
+                      }),
+                  MaterialButton(
+                    onPressed: () async {
+                      logger.d(_firstNameController.text);
+                      final addData = new AddDataFirestore();
+                      if (formKey.currentState!.validate()) {
+                        await addData.addResponce(
+                            _firstNameController.text,
+                            _lastNameController.text,
+                            _emailController.text,
+                            _phoneController.text,
+                            _messageController.text);
+                        formKey.currentState!.reset();
+                        DialogError(context);
+                      }
+                    },
+                    elevation: 20.0,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10.0)),
+                    height: 60.0,
+                    minWidth: 200.0,
+                    color: Colors.tealAccent,
+                    child: SansBold("Submit", 20.0),
+                  )
+                ],
+              ),
             ),
           ),
           SizedBox(

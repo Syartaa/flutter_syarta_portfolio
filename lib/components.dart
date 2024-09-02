@@ -1,7 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:logger/logger.dart';
 
 class TabsWeb extends StatefulWidget {
   final tittle;
@@ -122,13 +124,17 @@ class TextForm extends StatelessWidget {
   final Containerwidth;
   final hintText;
   final maxLines;
+  final controller;
+  final validator;
 
   const TextForm(
       {super.key,
       @required this.text,
       @required this.Containerwidth,
       @required this.hintText,
-      this.maxLines});
+      this.maxLines,
+      this.controller,
+      this.validator});
 
   @override
   Widget build(BuildContext context) {
@@ -140,11 +146,17 @@ class TextForm extends StatelessWidget {
           SizedBox(
             width: Containerwidth,
             child: TextFormField(
+              validator: validator,
+              controller: controller,
               maxLines: maxLines == null ? null : maxLines,
               decoration: InputDecoration(
-                focusedErrorBorder: OutlineInputBorder(
+                errorBorder: OutlineInputBorder(
                   borderSide: BorderSide(color: Colors.red),
                   borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                ),
+                focusedErrorBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.red),
+                  borderRadius: BorderRadius.all(Radius.circular(15.0)),
                 ),
                 enabledBorder: OutlineInputBorder(
                   borderSide: BorderSide(color: Colors.teal),
@@ -317,6 +329,7 @@ class AbelCustom extends StatelessWidget {
   final size;
   final color;
   final fontWeight;
+
   const AbelCustom(
       {super.key,
       @required this.text,
@@ -334,6 +347,35 @@ class AbelCustom extends StatelessWidget {
           fontWeight: fontWeight == null ? FontWeight.normal : fontWeight),
     );
   }
+}
+
+class AddDataFirestore {
+  var logger = Logger();
+  CollectionReference response =
+      FirebaseFirestore.instance.collection("messages");
+  Future<void> addResponce(final firstName, final lastName, final email,
+      final phoneNumber, final message) async {
+    return response
+        .add({
+          'first name': firstName,
+          'last name': lastName,
+          'email': email,
+          'phone number': phoneNumber,
+          'message': message,
+        })
+        .then((value) => logger.d("Success"))
+        .catchError((error) => logger.d(error));
+  }
+}
+
+Future DialogError(BuildContext context) {
+  return showDialog(
+      context: context,
+      builder: (BuildContext context) => AlertDialog(
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10.0)),
+            title: SansBold("Message submited", 20.0),
+          ));
 }
 
 //validation example
