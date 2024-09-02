@@ -25,63 +25,7 @@ class _ContactWebState extends State<ContactWeb> {
     var heightDevice = MediaQuery.of(context).size.height;
     var widthDevice = MediaQuery.of(context).size.width;
     return Scaffold(
-      drawer: Drawer(
-        backgroundColor: Colors.white,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            CircleAvatar(
-              radius: 72.0,
-              backgroundColor: Colors.tealAccent,
-              child: CircleAvatar(
-                radius: 70.0,
-                backgroundColor: Colors.white,
-                backgroundImage: AssetImage("assets/profilePhoto.jpg"),
-              ),
-            ),
-            SizedBox(height: 15.0),
-            SansBold("Syarta Pajaziti", 30.0),
-            SizedBox(
-              height: 15.0,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                IconButton(
-                  onPressed: () async {
-                    await launchUrl(Uri.parse('https://www.instagram.com/'));
-                  },
-                  icon: SvgPicture.asset(
-                    "assets/instagram.svg",
-                    color: Colors.black,
-                    width: 35.0,
-                  ),
-                ),
-                IconButton(
-                  onPressed: () async {
-                    await launchUrl(Uri.parse('https://www.github.com/'));
-                  },
-                  icon: SvgPicture.asset(
-                    "assets/github.svg",
-                    color: Colors.black,
-                    width: 35.0,
-                  ),
-                ),
-                IconButton(
-                  onPressed: () async {
-                    await launchUrl(Uri.parse('https://www.twitter.com/'));
-                  },
-                  icon: SvgPicture.asset(
-                    "assets/twitter.svg",
-                    color: Colors.black,
-                    width: 35.0,
-                  ),
-                ),
-              ],
-            )
-          ],
-        ),
-      ),
+      drawer: DrawersWeb(),
       backgroundColor: Colors.white,
       body: NestedScrollView(
           headerSliverBuilder: (BuildContext context, bool innerBoxIsScolled) {
@@ -97,38 +41,7 @@ class _ContactWebState extends State<ContactWeb> {
                     filterQuality: FilterQuality.high,
                   ),
                 ),
-                title: Row(
-                  children: [
-                    Spacer(
-                      flex: 3,
-                    ),
-                    TabsWeb(
-                      tittle: "Home",
-                      route: '/',
-                    ),
-                    Spacer(),
-                    TabsWeb(
-                      tittle: "Works",
-                      route: '/works',
-                    ),
-                    Spacer(),
-                    TabsWeb(
-                      tittle: "Blog",
-                      route: '/blog',
-                    ),
-                    Spacer(),
-                    TabsWeb(
-                      tittle: "About",
-                      route: '/about',
-                    ),
-                    Spacer(),
-                    TabsWeb(
-                      tittle: "Contact",
-                      route: '/contact',
-                    ),
-                    Spacer(),
-                  ],
-                ),
+                title: TabsWebList(),
               )
             ];
           },
@@ -213,14 +126,17 @@ class _ContactWebState extends State<ContactWeb> {
                         logger.d(_firstNameController.text);
                         final addData = new AddDataFirestore();
                         if (formKey.currentState!.validate()) {
-                          await addData.addResponce(
+                          if (await addData.addResponce(
                               _firstNameController.text,
                               _lastNameController.text,
                               _emailController.text,
                               _phoneController.text,
-                              _messageController.text);
-                          formKey.currentState!.reset();
-                          DialogError(context);
+                              _messageController.text)) {
+                            formKey.currentState!.reset();
+                            DialogError(context, "Message sent successtuly");
+                          } else {
+                            DialogError(context, "Message failed to sent");
+                          }
                         }
                       },
                       elevation: 20.0,

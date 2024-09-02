@@ -13,23 +13,6 @@ class LandingPageWeb extends StatefulWidget {
 }
 
 class _LandingPageWebState extends State<LandingPageWeb> {
-  Widget urlLauncher(String imgPath, String url) {
-    return IconButton(
-      icon: SvgPicture.asset(
-        imgPath,
-        color: Colors.black,
-        width: 35,
-      ),
-      onPressed: () async {
-        if (await canLaunchUrl(Uri.parse(url))) {
-          await launchUrl(Uri.parse(url));
-        } else {
-          throw 'Could not launch $url';
-        }
-      },
-    );
-  }
-
   var logger = Logger();
   final TextEditingController _firstNameController = TextEditingController();
   final TextEditingController _lastNameController = TextEditingController();
@@ -44,69 +27,12 @@ class _LandingPageWebState extends State<LandingPageWeb> {
     var widthDevice = MediaQuery.of(context).size.width;
     return Scaffold(
       backgroundColor: Colors.white,
-      drawer: Drawer(
-        backgroundColor: Colors.white,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            CircleAvatar(
-              radius: 72,
-              backgroundColor: Colors.tealAccent,
-              child: CircleAvatar(
-                radius: 70,
-                backgroundImage: AssetImage("assets/profilePhoto.jpg"),
-              ),
-            ),
-            SizedBox(height: 15.0),
-            SansBold("Syarta Pajaziti", 30.0),
-            SizedBox(height: 15.0),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                urlLauncher("assets/instagram.svg",
-                    "https://www.instagram.com/tomcruise/"),
-                urlLauncher(
-                    "assets/twitter.svg", "https://www.twitter.com/tomcruise/"),
-                urlLauncher("assets/github.svg", "https://www.github.com/"),
-              ],
-            )
-          ],
-        ),
-      ),
+      drawer: DrawersWeb(),
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0.0,
         iconTheme: IconThemeData(size: 25.0, color: Colors.black),
-        title: Row(children: [
-          Spacer(
-            flex: 3,
-          ),
-          TabsWeb(
-            tittle: "Home",
-            route: '/',
-          ),
-          Spacer(),
-          TabsWeb(
-            tittle: "About",
-            route: '/about',
-          ),
-          Spacer(),
-          TabsWeb(
-            tittle: "Works",
-            route: '/works',
-          ),
-          Spacer(),
-          TabsWeb(
-            tittle: "Blog",
-            route: '/blog',
-          ),
-          Spacer(),
-          TabsWeb(
-            tittle: "Contact",
-            route: '/contact',
-          ),
-          Spacer(),
-        ]),
+        title: TabsWebList(),
       ),
       body: ListView(
         children: [
@@ -351,14 +277,17 @@ class _LandingPageWebState extends State<LandingPageWeb> {
                       logger.d(_firstNameController.text);
                       final addData = new AddDataFirestore();
                       if (formKey.currentState!.validate()) {
-                        await addData.addResponce(
+                        if (await addData.addResponce(
                             _firstNameController.text,
                             _lastNameController.text,
                             _emailController.text,
                             _phoneController.text,
-                            _messageController.text);
-                        formKey.currentState!.reset();
-                        DialogError(context);
+                            _messageController.text)) {
+                          formKey.currentState!.reset();
+                          DialogError(context, "Message sent successtuly");
+                        } else {
+                          DialogError(context, "Message failed to sent");
+                        }
                       }
                     },
                     elevation: 20.0,

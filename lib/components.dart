@@ -1,9 +1,13 @@
+import 'dart:math';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:logger/logger.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class TabsWeb extends StatefulWidget {
   final tittle;
@@ -61,6 +65,51 @@ class _TabsWebState extends State<TabsWeb> {
   }
 }
 
+class TabsWebList extends StatefulWidget {
+  const TabsWebList({super.key});
+
+  @override
+  State<TabsWebList> createState() => _TabsWebListState();
+}
+
+class _TabsWebListState extends State<TabsWebList> {
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Spacer(
+          flex: 3,
+        ),
+        TabsWeb(
+          tittle: "Home",
+          route: '/',
+        ),
+        Spacer(),
+        TabsWeb(
+          tittle: "Works",
+          route: '/works',
+        ),
+        Spacer(),
+        TabsWeb(
+          tittle: "Blog",
+          route: '/blog',
+        ),
+        Spacer(),
+        TabsWeb(
+          tittle: "About",
+          route: '/about',
+        ),
+        Spacer(),
+        TabsWeb(
+          tittle: "Contact",
+          route: '/contact',
+        ),
+        Spacer(),
+      ],
+    );
+  }
+}
+
 class TabsMobile extends StatefulWidget {
   final text;
   final route;
@@ -88,6 +137,132 @@ class _TabsMobileState extends State<TabsMobile> {
         onPressed: () {
           Navigator.of(context).pushNamed(widget.route);
         });
+  }
+}
+
+class DrawersWeb extends StatefulWidget {
+  const DrawersWeb({super.key});
+
+  @override
+  State<DrawersWeb> createState() => _DrawersWebState();
+}
+
+class _DrawersWebState extends State<DrawersWeb> {
+  Widget urlLauncher(String imgPath, String url) {
+    return IconButton(
+      icon: SvgPicture.asset(
+        imgPath,
+        color: Colors.black,
+        width: 35,
+      ),
+      onPressed: () async {
+        if (await canLaunchUrl(Uri.parse(url))) {
+          await launchUrl(Uri.parse(url));
+        } else {
+          throw 'Could not launch $url';
+        }
+      },
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Drawer(
+      backgroundColor: Colors.white,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          CircleAvatar(
+            radius: 72,
+            backgroundColor: Colors.tealAccent,
+            child: CircleAvatar(
+              radius: 70,
+              backgroundImage: AssetImage("assets/profilePhoto.jpg"),
+            ),
+          ),
+          SizedBox(height: 15.0),
+          SansBold("Syarta Pajaziti", 30.0),
+          SizedBox(height: 15.0),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              urlLauncher("assets/instagram.svg",
+                  "https://www.instagram.com/tomcruise/"),
+              urlLauncher(
+                  "assets/twitter.svg", "https://www.twitter.com/tomcruise/"),
+              urlLauncher("assets/github.svg", "https://www.github.com/"),
+            ],
+          )
+        ],
+      ),
+    );
+  }
+}
+
+class DrawersMobile extends StatefulWidget {
+  const DrawersMobile({super.key});
+
+  @override
+  State<DrawersMobile> createState() => _DrawersMobileState();
+}
+
+class _DrawersMobileState extends State<DrawersMobile> {
+  Widget urlLauncher(String imgPath, String url) {
+    return IconButton(
+      icon: SvgPicture.asset(
+        imgPath,
+        color: Colors.black,
+        width: 35,
+      ),
+      onPressed: () async {
+        if (await canLaunchUrl(Uri.parse(url))) {
+          await launchUrl(Uri.parse(url));
+        } else {
+          throw 'Could not launch $url';
+        }
+      },
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Drawer(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          DrawerHeader(
+            padding: EdgeInsets.only(bottom: 20.0),
+            child: Container(
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                border: Border.all(width: 2.0, color: Colors.black),
+              ),
+              child: Image.asset('assets/image=circle.png'),
+            ),
+          ),
+          TabsMobile(text: "Home", route: '/'),
+          SizedBox(height: 20.0),
+          TabsMobile(text: "About", route: '/about'),
+          SizedBox(height: 20.0),
+          TabsMobile(text: "Works", route: '/works'),
+          SizedBox(height: 20.0),
+          TabsMobile(text: "Blog", route: '/blog'),
+          SizedBox(height: 20.0),
+          TabsMobile(text: "Contact", route: '/contact'),
+          SizedBox(height: 40.0),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              urlLauncher("assets/instagram.svg",
+                  "https://www.instagram.com/tomcruise/"),
+              urlLauncher(
+                  "assets/twitter.svg", "https://www.twitter.com/tomcruise/"),
+              urlLauncher("assets/github.svg", "https://www.github.com/"),
+            ],
+          )
+        ],
+      ),
+    );
   }
 }
 
@@ -353,28 +528,31 @@ class AddDataFirestore {
   var logger = Logger();
   CollectionReference response =
       FirebaseFirestore.instance.collection("messages");
-  Future<void> addResponce(final firstName, final lastName, final email,
+  Future addResponce(final firstName, final lastName, final email,
       final phoneNumber, final message) async {
-    return response
-        .add({
-          'first name': firstName,
-          'last name': lastName,
-          'email': email,
-          'phone number': phoneNumber,
-          'message': message,
-        })
-        .then((value) => logger.d("Success"))
-        .catchError((error) => logger.d(error));
+    return response.add({
+      'first name': firstName,
+      'last name': lastName,
+      'email': email,
+      'phone number': phoneNumber,
+      'message': message,
+    }).then((value) {
+      logger.d("Success");
+      return true;
+    }).catchError((error) {
+      logger.d(error);
+      return false;
+    });
   }
 }
 
-Future DialogError(BuildContext context) {
+Future DialogError(BuildContext context, String title) {
   return showDialog(
       context: context,
       builder: (BuildContext context) => AlertDialog(
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10.0)),
-            title: SansBold("Message submited", 20.0),
+            title: SansBold(title, 20.0),
           ));
 }
 

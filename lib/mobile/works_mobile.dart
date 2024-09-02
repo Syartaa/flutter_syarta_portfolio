@@ -12,66 +12,13 @@ class WorksMobile extends StatefulWidget {
 }
 
 class _WorksMobileState extends State<WorksMobile> {
-  Widget urlLauncher(String imgPath, String url) {
-    return IconButton(
-      icon: SvgPicture.asset(
-        imgPath,
-        color: Colors.black,
-        width: 35,
-      ),
-      onPressed: () async {
-        if (await canLaunchUrl(Uri.parse(url))) {
-          await launchUrl(Uri.parse(url));
-        } else {
-          throw 'Could not launch $url';
-        }
-      },
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
         extendBodyBehindAppBar: true,
         backgroundColor: Colors.white,
-        endDrawer: Drawer(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              DrawerHeader(
-                padding: EdgeInsets.only(bottom: 20.0),
-                child: Container(
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    border: Border.all(width: 2.0, color: Colors.black),
-                  ),
-                  child: Image.asset('assets/image=circle.png'),
-                ),
-              ),
-              TabsMobile(text: "Home", route: '/'),
-              SizedBox(height: 20.0),
-              TabsMobile(text: "About", route: '/about'),
-              SizedBox(height: 20.0),
-              TabsMobile(text: "Works", route: '/works'),
-              SizedBox(height: 20.0),
-              TabsMobile(text: "Blog", route: '/blog'),
-              SizedBox(height: 20.0),
-              TabsMobile(text: "Contact", route: '/contact'),
-              SizedBox(height: 40.0),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  urlLauncher("assets/instagram.svg",
-                      "https://www.instagram.com/tomcruise/"),
-                  urlLauncher("assets/twitter.svg",
-                      "https://www.twitter.com/tomcruise/"),
-                  urlLauncher("assets/github.svg", "https://www.github.com/"),
-                ],
-              )
-            ],
-          ),
-        ),
+        endDrawer: DrawersMobile(),
         body: NestedScrollView(
           headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
             return <Widget>[
